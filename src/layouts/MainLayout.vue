@@ -91,7 +91,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { useAuthStore } from 'src/stores/auth'
+import { useAuthStore } from 'src/stores/auth-store'
 import EssentialLink from 'src/components/common/menu/EssentialLink.vue';
 
 const router = useRouter()
@@ -111,10 +111,10 @@ const menu = [
     icon: 'dashboard',
   },
   {
-    title: 'Registrar usuario',
-    caption: 'Registrar nuevo usuario',
+    title: 'Registrar metodo de pago',
+    caption: 'Registrar nuevo mdtodo de pago',
     route: 'Registrar',
-    icon: 'person_add',
+    icon: 'payment',
   },
 ]
 

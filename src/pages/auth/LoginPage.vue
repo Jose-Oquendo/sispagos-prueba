@@ -46,7 +46,7 @@
 <script setup lang="ts">
 
 import { ref } from 'vue';
-import { useAuthStore } from 'src/stores/auth';
+import { useAuthStore } from 'src/stores/auth-store';
 import { useRouter } from 'vue-router';
 import { useQuasar } from 'quasar';
 

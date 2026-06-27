@@ -1,7 +1,7 @@
 export interface MetodoPago {
   id?: number;
-  nombre: string;
-  tipo: string;
-  estado: 'Activo' | 'Inactivo';
-  fechaCreacion: string;
+  name: string;
+  type: string;
+  state: 'Activo' | 'Inactivo';
+  dateCreation: string;
 }

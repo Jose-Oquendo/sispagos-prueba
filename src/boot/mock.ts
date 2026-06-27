@@ -1,6 +1,6 @@
 import MockAdapter from 'axios-mock-adapter';
 import type { AxiosInstance } from 'axios';
-import { userAdmin, userValid } from 'src/mocks/AppMocks';
+import { userAdmin, userValid, metodosPagoList } from 'src/mocks/AppMocks';
 
 export function simulatedData(api: AxiosInstance) {
   const mock = new MockAdapter(api, { delayResponse: 1200 });
@@ -14,5 +14,9 @@ export function simulatedData(api: AxiosInstance) {
       // Si las credenciales no coinciden, devolvemos un código 401 (No autorizado)
       return [401, { message: 'Correo o contraseña incorrectos' }];
     }
+  });
+
+  mock.onGet('/payment/list').reply(() => {
+    return [200, metodosPagoList];
   });
 }

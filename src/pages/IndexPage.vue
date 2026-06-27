@@ -1,22 +1,23 @@
 <template>
-  <q-page class="column justify-evenly">
+  <q-page class="column justify-betweenp">
     <div class="q-pa-md">
       <SearchForm></SearchForm>
 
-      <q-separator class="q-my-xl" />
+      <q-separator class="q-my-md" />
 
       <div class="text-h6 q-mb-md">Listado de Métodos de Pago</div>
 
-      <GenericTable :rows="metodosPagoList" :columns="columns" row-key="id" @row-press="onMethodSelect">
+      <GenericTable :rows="paymentStore.filteredPaymentList" :columns="columns" row-key="id"
+        @row-press="onMethodSelect">
         <template #body-cells="{ row }">
-          <q-td key="nombre">{{ row.nombre }}</q-td>
-          <q-td key="tipo">{{ row.tipo }}</q-td>
+          <q-td key="nombre">{{ row.name }}</q-td>
+          <q-td key="tipo">{{ row.type }}</q-td>
           <q-td key="estado">
-            <q-chip :color="row.estado === 'Activo' ? 'positive' : 'negative'" text-color="white" dense>
-              {{ row.estado }}
+            <q-chip :color="row.state === 'Activo' ? 'positive' : 'negative'" text-color="white" dense>
+              {{ row.state }}
             </q-chip>
           </q-td>
-          <q-td key="fechaCreacion">{{ row.fechaCreacion }}</q-td>
+          <q-td key="fechaCreacion">{{ row.dateCreation }}</q-td>
         </template>
       </GenericTable>
     </div>
@@ -24,11 +25,18 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue';
 import type { QTableProps } from 'quasar';
 import { type MetodoPago } from 'src/components/models';
-import { metodosPagoList } from 'src/mocks/AppMocks';
+import { usePaymentStore } from 'src/stores/payment-store';
 import SearchForm from 'src/components/SearchForm.vue';
 import GenericTable from 'src/components/common/table/GenericTable.vue';
+
+const paymentStore = usePaymentStore();
+
+onMounted(async () => {
+  await paymentStore.fetchPaymentList();
+});
 
 const columns: QTableProps['columns'] = [
   { name: 'nombre', label: 'Nombre', field: 'nombre', align: 'left', sortable: true },
@@ -40,6 +48,7 @@ const columns: QTableProps['columns'] = [
 const onMethodSelect = (item: MetodoPago) => {
   console.log('Método de pago seleccionado:', item);
   // Aquí podrías cargar el item en el formulario para editarlo o abrir un detalle
+  alert("selecciono " + item.name)
 };
 
 </script>

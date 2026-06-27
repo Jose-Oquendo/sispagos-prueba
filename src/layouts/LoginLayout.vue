@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import { useAuthStore } from 'src/stores/auth';
+import { useAuthStore } from 'src/stores/auth-store';
 
 const auth = useAuthStore();
 </script>
