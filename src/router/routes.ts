@@ -9,11 +9,10 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: '/dashboard',
-    name: 'Dashboard',
     component: () => import('layouts/MainLayout.vue'),
     meta: { requiresAuth: true },
     children: [
-      { path: '', name: 'Index', component: () => import('pages/IndexPage.vue') },
+      { path: '', name: 'Dashboard', component: () => import('pages/IndexPage.vue') },
       { path: '/registrar', name: 'Registrar', component: () => import('pages/IndexPage.vue') },
     ],
   },

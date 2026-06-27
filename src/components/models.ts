@@ -1,8 +1,7 @@
-export interface Todo {
-  id: number;
-  content: string;
-}
-
-export interface Meta {
-  totalCount: number;
+export interface MetodoPago {
+  id?: number;
+  nombre: string;
+  tipo: string;
+  estado: 'Activo' | 'Inactivo';
+  fechaCreacion: string;
 }

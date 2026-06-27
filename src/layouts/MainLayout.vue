@@ -2,7 +2,7 @@
   <q-layout view="hHr lpR fFf">
 
     <!-- Header -->
-    <q-header elevated class="bg-primary text-white">
+    <q-header elevated class="bg-primary text-white q-header-pad">
       <q-toolbar>
         <q-toolbar-title>
           SisPagos
@@ -81,7 +81,7 @@
     </q-drawer>
 
     <!-- Contenido -->
-    <q-page-container>
+    <q-page-container class="q-bg-texture">
       <router-view />
     </q-page-container>
 
@@ -92,7 +92,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from 'src/stores/auth'
-import EssentialLink from 'components/EssentialLink.vue';
+import EssentialLink from 'src/components/common/menu/EssentialLink.vue';
 
 const router = useRouter()
 const auth = useAuthStore()
@@ -125,8 +125,30 @@ async function logout() {
 </script>
 
 <style scoped>
+.q-header-pad {
+  padding: 5px 0px;
+}
+
 .q-toolbar-title small {
   display: block;
+}
+
+.q-bg-texture {
+  --s: 53px;
+  /* control the size*/
+  --c1: #ffffff;
+  --c2: #fcfcfc;
+
+  --c: #0000 75%, var(--c1) 0;
+  --g1: conic-gradient(at calc(200%/3) 10%, var(--c));
+  --g2: conic-gradient(at 10% calc(200%/3), var(--c));
+  background:
+    var(--g1), var(--g2),
+    var(--g1) var(--s) var(--s),
+    var(--g2) var(--s) var(--s),
+    var(--g1) calc(2*var(--s)) calc(2*var(--s)),
+    var(--g2) calc(2*var(--s)) calc(2*var(--s)) var(--c2);
+  background-size: calc(3*var(--s)) calc(3*var(--s));
 }
 </style>
 
