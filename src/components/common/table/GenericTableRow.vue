@@ -5,11 +5,9 @@
 </template>
 
 <script setup lang="ts" generic="T extends Record<string, any>">
-// 💡 Nota: Usamos "generic" en la etiqueta script (disponible desde Vue 3.3+)
-// para que el componente sea dinámico con el tipo de dato que reciba.
-
+//uso de "generic" debido a error EsLint con valor any
 interface Props {
-  props: Record<string, unknown>; // Aquí 'any' suele ser permitido por ESLint si viene de librerías, pero usamos Record para asegurar el objeto
+  props: Record<string, unknown>;
   item: T;
 }
 

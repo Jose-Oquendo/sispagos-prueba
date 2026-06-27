@@ -1,6 +1,6 @@
 import MockAdapter from 'axios-mock-adapter';
 import type { AxiosInstance } from 'axios';
-import { userAdmin, userValid, metodosPagoList } from 'src/mocks/AppMocks';
+import { userAdmin, userValid, paymentMethodsList } from 'src/mocks/AppMocks';
 
 export function simulatedData(api: AxiosInstance) {
   const mock = new MockAdapter(api, { delayResponse: 1200 });
@@ -17,6 +17,6 @@ export function simulatedData(api: AxiosInstance) {
   });
 
   mock.onGet('/payment/list').reply(() => {
-    return [200, metodosPagoList];
+    return [200, paymentMethodsList];
   });
 }

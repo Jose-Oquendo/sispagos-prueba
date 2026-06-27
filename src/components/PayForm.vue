@@ -103,7 +103,7 @@ onMounted(() => {
 const onSave = async () => {
   if (paymentStore.formData.paymentType != undefined) {
     paymentStore.saveNewMethod();
-    await router.push({ name: 'Dashboard' });
+    await router.push({ name: 'Inicio' });
   } else {
     $q.notify({
       type: 'negative',
@@ -115,11 +115,12 @@ const onSave = async () => {
 }
 
 const onCancel = () => {
-  console.log("Cancelar")
+  paymentStore.resetFormData();
 }
 
 const changeType = (type: string) => {
   if (!alreadyNotify.value) {
+    //notificar al usuario cuando se cambia de tipo
     $q.notify({
       type: 'info',
       message: 'Al cambiar tipo, se borraran los datos digitados.',
@@ -129,6 +130,7 @@ const changeType = (type: string) => {
     alreadyNotify.value = true;
   }
   paymentStore.formData.paymentType = type
+  //para evitar datos innecesarios de otros tipos, por cada cambio, vaciar información
   paymentStore.cleanTypeData();
 }
 

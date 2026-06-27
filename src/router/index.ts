@@ -26,12 +26,13 @@ export default defineRouter((/* { store, ssrContext } */) => {
   });
 
   Router.beforeEach((to, from, next) => {
+    //comprobar el acceso a rutas
     const authStore = useAuthStore();
     const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
     if (requiresAuth && !authStore.isLoggedIn) {
       next({ name: 'Login' });
     } else if (to.name === 'Login' && authStore.isLoggedIn) {
-      next({ name: 'Dashboard' });
+      next({ name: 'Inicio' });
     } else {
       next();
     }

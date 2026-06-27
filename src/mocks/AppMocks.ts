@@ -1,4 +1,4 @@
-import type { MetodoPago } from 'src/components/models';
+import type { PaymentMethod } from 'src/components/models';
 
 export const userAdmin = {
   email: 'admin@correo.com',
@@ -13,7 +13,7 @@ export const userValid = {
   },
 };
 
-export const metodosPagoList: MetodoPago[] = [
+export const paymentMethodsList: PaymentMethod[] = [
   {
     id: 1,
     alias: 'Visa Bancolombia (Wompi)',

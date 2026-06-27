@@ -1,4 +1,8 @@
-export interface MetodoPago {
+export interface User {
+  name: string;
+  role: string;
+}
+export interface PaymentMethod {
   id: number;
   alias: string;
   creationDate: string;

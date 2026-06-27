@@ -33,7 +33,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import type { QTableProps } from 'quasar';
-import { type MetodoPago } from 'src/components/models';
+import { type PaymentMethod } from 'src/components/models';
 import { usePaymentStore } from 'src/stores/payment-store';
 import SearchForm from 'src/components/SearchForm.vue';
 import GenericTable from 'src/components/common/table/GenericTable.vue';
@@ -50,12 +50,12 @@ const columns: QTableProps['columns'] = [
   { name: 'acciones', label: '', field: 'acciones', align: 'center', sortable: false }
 ];
 
-const onMethodSelect = (item: MetodoPago) => {
+const onMethodSelect = (item: PaymentMethod) => {
   paymentStore.formData = item; // Guarda el método seleccionado
   isModalOpen.value = true;    // Abre el modal automáticamente
 };
 
-const onStatusChange = (nuevoValor: boolean, metodo: MetodoPago) => {
+const onStatusChange = (nuevoValor: boolean, metodo: PaymentMethod) => {
   metodo.isActive = nuevoValor;
 };
 

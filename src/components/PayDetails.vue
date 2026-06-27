@@ -80,7 +80,7 @@
                     <q-item-label caption>Subtipo</q-item-label>
                     <q-item-label class="text-capitalize">{{paymentStore.cardSubTypes.find(t => t.value ===
                       paymentStore.formData.cardSubType)?.label
-                    }}</q-item-label>
+                      }}</q-item-label>
                   </q-item-section>
                 </q-item>
               </div>
@@ -159,7 +159,7 @@
               <q-item-section>
                 <q-item-label caption>Código / ID de Referencia</q-item-label>
                 <q-item-label class="text-mono text-weight-medium">{{ paymentStore.formData.cashReference
-                }}</q-item-label>
+                  }}</q-item-label>
               </q-item-section>
             </q-item>
           </template>
@@ -182,7 +182,6 @@ const paymentStore = usePaymentStore();
 const router = useRouter();
 
 const goToEdit = async () => {
-  console.log("Ir al formulario");
   await router.push({ name: 'Formulario' });
 }
 </script>

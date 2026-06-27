@@ -7,7 +7,7 @@
       </div>
 
       <div class="col-xs-12 col-sm-6 col-md-4">
-        <q-select v-model="paymentStore.filterData.type" :options="paymentStore.tipoOptions" label="Tipo de Pago"
+        <q-select v-model="paymentStore.filterData.type" :options="paymentStore.typeOptions" label="Tipo de Pago"
           outlined dense emit-value map-options />
       </div>
 
@@ -46,8 +46,8 @@ const isSaving = ref(false);
 
 const onSave = async () => {
   try {
-    isSaving.value = true;
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    isSaving.value = true; //Efecto cargando del boton
+    await new Promise((resolve) => setTimeout(resolve, 1000)); //Simulacion de carga de datos
     await paymentStore.fetchPaymentList();
   } catch (error) {
     console.error('Error al guardar:', error);

@@ -66,7 +66,7 @@ const sendlogin = async () => {
         timeout: 3000,
       });
 
-      await router.push({ name: 'Dashboard' });
+      await router.push({ name: 'Inicio' });
 
     } else {
       $q.notify({

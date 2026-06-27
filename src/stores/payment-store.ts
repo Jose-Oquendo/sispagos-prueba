@@ -1,13 +1,13 @@
 import { defineStore } from 'pinia';
 import { api } from 'src/boot/axios';
-import type { MetodoPago, filter } from 'src/components/models';
+import type { PaymentMethod, filter } from 'src/components/models';
 
 export const usePaymentStore = defineStore('payment', {
   state: () => ({
-    savingCreationData: [] as MetodoPago[],
-    paymentList: [] as MetodoPago[],
+    savingCreationData: [] as PaymentMethod[],
+    paymentList: [] as PaymentMethod[],
     filterData: {} as filter,
-    formData: {} as MetodoPago,
+    formData: {} as PaymentMethod,
     paymentTypes: [
       { label: 'Tarjeta', search: 'Tarjeta', value: 'card', icon: 'credit_card' },
       { label: 'PayPal', search: 'Billetera Digital', value: 'paypal', icon: 'payment' },
@@ -40,10 +40,10 @@ export const usePaymentStore = defineStore('payment', {
     ],
   }),
   getters: {
-    tipoOptions(state): string[] {
+    typeOptions(state): string[] {
       return state.paymentTypes.map((item) => item.search);
     },
-    filteredPaymentList(state): MetodoPago[] {
+    filteredPaymentList(state): PaymentMethod[] {
       state.paymentList = [...state.paymentList, ...state.savingCreationData];
       return state.paymentList.filter((item) => {
         const matchesName =
@@ -93,7 +93,7 @@ export const usePaymentStore = defineStore('payment', {
           console.error('No se encontró el método con ID:', this.formData.id);
         }
       }
-      this.formData = {} as MetodoPago;
+      this.formData = {} as PaymentMethod;
     },
     cleanTypeData() {
       this.formData.cardNumber = '';
@@ -110,7 +110,7 @@ export const usePaymentStore = defineStore('payment', {
       this.formData.cashReference = '';
     },
     resetFormData() {
-      this.formData = {} as MetodoPago;
+      this.formData = {} as PaymentMethod;
     },
   },
 });
