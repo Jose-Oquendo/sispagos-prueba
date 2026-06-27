@@ -52,7 +52,7 @@
           </q-item-label>
 
           <EssentialLink v-for="(item, index) in menu" :key="index" :title="item.title" :caption="item.caption"
-            :route="item.route" :icon="item.icon" />
+            :route="item.route" :icon="item.icon" @click="paymentStore.resetFormData" />
 
         </q-list>
 
@@ -92,9 +92,11 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from 'src/stores/auth-store'
+import { usePaymentStore } from 'src/stores/payment-store';
 import EssentialLink from 'src/components/common/menu/EssentialLink.vue';
 
 const router = useRouter()
+const paymentStore = usePaymentStore();
 const auth = useAuthStore()
 
 const rightDrawerOpen = ref(false)
@@ -105,15 +107,15 @@ function toggleRightDrawer() {
 
 const menu = [
   {
-    title: 'Dashboard',
+    title: 'Inicio',
     caption: 'Vista general',
-    route: 'Dashboard',
+    route: 'Inicio',
     icon: 'dashboard',
   },
   {
     title: 'Registrar metodo de pago',
     caption: 'Registrar nuevo mdtodo de pago',
-    route: 'Registrar',
+    route: 'Formulario',
     icon: 'payment',
   },
 ]

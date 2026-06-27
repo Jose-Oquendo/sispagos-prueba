@@ -34,6 +34,10 @@ export const usePaymentStore = defineStore('payment', {
       { label: 'Cuenta de Ahorros', value: 'savings' },
       { label: 'Clave Interbancaria (CCI)', value: 'clabe' },
     ],
+    cardSubTypes: [
+      { label: 'Crédito', value: 'credit' },
+      { label: 'Débito', value: 'debit' },
+    ],
   }),
   getters: {
     tipoOptions(state): string[] {
@@ -75,7 +79,20 @@ export const usePaymentStore = defineStore('payment', {
       await this.fetchPaymentList(); // Refresh
     },
     saveNewMethod() {
-      this.savingCreationData.push(this.formData);
+      if (this.formData.id === undefined || this.formData.id === null) {
+        const nextId =
+          this.paymentList.length > 0 ? Math.max(...this.paymentList.map((m) => m.id)) + 1 : 1;
+        this.formData.id = nextId;
+        this.savingCreationData.push({ ...this.formData });
+      } else {
+        const index = this.paymentList.findIndex((item) => item.id === this.formData.id);
+
+        if (index !== -1) {
+          this.paymentList[index] = { ...this.formData };
+        } else {
+          console.error('No se encontró el método con ID:', this.formData.id);
+        }
+      }
       this.formData = {} as MetodoPago;
     },
     cleanTypeData() {
@@ -91,6 +108,9 @@ export const usePaymentStore = defineStore('payment', {
       this.formData.cashProvider = '';
       this.formData.cashProviderCustom = '';
       this.formData.cashReference = '';
+    },
+    resetFormData() {
+      this.formData = {} as MetodoPago;
     },
   },
 });

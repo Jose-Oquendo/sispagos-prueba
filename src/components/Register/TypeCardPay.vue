@@ -30,8 +30,8 @@
     </div>
 
     <div class="col-12 col-sm-4 col-md-4">
-      <q-select v-model="paymentStore.formData.cardSubType" :options="cardSubTypes" label="Clasificación" outlined dense
-        emit-value map-options color="indigo-6" bg-color="white" />
+      <q-select v-model="paymentStore.formData.cardSubType" :options="paymentStore.cardSubTypes" label="Clasificación"
+        outlined dense emit-value map-options color="indigo-6" bg-color="white" />
     </div>
   </div>
 </template>
@@ -41,11 +41,6 @@ import GenericInput from '../common/form/GenericInput.vue';
 import { usePaymentStore } from 'src/stores/payment-store';
 
 const paymentStore = usePaymentStore();
-
-const cardSubTypes = [
-  { label: 'Crédito', value: 'credit' },
-  { label: 'Débito', value: 'debit' }
-];
 
 </script>
 

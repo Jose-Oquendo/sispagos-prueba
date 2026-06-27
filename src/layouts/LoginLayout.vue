@@ -1,6 +1,7 @@
 <template>
   <q-layout view="lCg lFf" class="auth-bg">
-    <q-page-container>
+    <div class="auth-bg-color"></div>
+    <q-page-container class="auth-content">
       <router-view v-if="!auth.loading" />
 
       <q-inner-loading :showing="auth.loading" label="Cargando entorno seguro..."
@@ -20,7 +21,23 @@ const auth = useAuthStore();
 
 <style scoped lang="scss">
 .auth-bg {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-image: url('src/assets/fondoLogin.png');
+  background-position: center;
+  background-size: cover;
+  position: relative;
+}
+
+.auth-bg-color {
+  background: linear-gradient(135deg, #667eea24 0%, #764ba275 100%);
   min-height: 100vh;
+  position: absolute;
+  width: 100%;
+  height: 100dvh;
+  z-index: 5;
+}
+
+.auth-content {
+  position: relative;
+  z-index: 50;
 }
 </style>

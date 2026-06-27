@@ -1,4 +1,5 @@
 export interface MetodoPago {
+  id: number;
   alias: string;
   creationDate: string;
   paymentType: string;

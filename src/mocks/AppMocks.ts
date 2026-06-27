@@ -15,6 +15,7 @@ export const userValid = {
 
 export const metodosPagoList: MetodoPago[] = [
   {
+    id: 1,
     alias: 'Visa Bancolombia (Wompi)',
     creationDate: '2026/01/15',
     paymentType: 'card',
@@ -33,6 +34,7 @@ export const metodosPagoList: MetodoPago[] = [
     isActive: true,
   },
   {
+    id: 2,
     alias: 'Cuenta Ahorros Davivienda (Empresarial)',
     creationDate: '2026/03/10',
     paymentType: 'bank',
@@ -51,6 +53,7 @@ export const metodosPagoList: MetodoPago[] = [
     isActive: true,
   },
   {
+    id: 3,
     alias: 'Punto Efecty - Recaudo Centro',
     creationDate: '2026/05/18',
     paymentType: 'cash',
@@ -69,6 +72,7 @@ export const metodosPagoList: MetodoPago[] = [
     isActive: true,
   },
   {
+    id: 4,
     alias: 'Corresponsal Bancario (Gane / SuperGiros)',
     creationDate: '2026/06/01',
     paymentType: 'cash',
