@@ -6,7 +6,7 @@ import {
   createWebHistory,
 } from 'vue-router';
 import routes from './routes';
-import { useAuthStore } from 'src/stores/auth';
+import { useAuthStore } from 'src/stores/auth-store';
 
 export default defineRouter((/* { store, ssrContext } */) => {
   const createHistory = process.env.SERVER
@@ -26,12 +26,13 @@ export default defineRouter((/* { store, ssrContext } */) => {
   });
 
   Router.beforeEach((to, from, next) => {
+    //comprobar el acceso a rutas
     const authStore = useAuthStore();
     const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
     if (requiresAuth && !authStore.isLoggedIn) {
       next({ name: 'Login' });
     } else if (to.name === 'Login' && authStore.isLoggedIn) {
-      next({ name: 'Dashboard' });
+      next({ name: 'Inicio' });
     } else {
       next();
     }

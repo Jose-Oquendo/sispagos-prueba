@@ -2,7 +2,7 @@
   <q-layout view="hHr lpR fFf">
 
     <!-- Header -->
-    <q-header elevated class="bg-primary text-white">
+    <q-header elevated class="bg-primary text-white q-header-pad">
       <q-toolbar>
         <q-toolbar-title>
           SisPagos
@@ -52,7 +52,7 @@
           </q-item-label>
 
           <EssentialLink v-for="(item, index) in menu" :key="index" :title="item.title" :caption="item.caption"
-            :route="item.route" :icon="item.icon" />
+            :route="item.route" :icon="item.icon" @click="paymentStore.resetFormData" />
 
         </q-list>
 
@@ -81,7 +81,7 @@
     </q-drawer>
 
     <!-- Contenido -->
-    <q-page-container>
+    <q-page-container class="q-bg-texture">
       <router-view />
     </q-page-container>
 
@@ -91,10 +91,12 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { useAuthStore } from 'src/stores/auth'
-import EssentialLink from 'components/EssentialLink.vue';
+import { useAuthStore } from 'src/stores/auth-store'
+import { usePaymentStore } from 'src/stores/payment-store';
+import EssentialLink from 'src/components/common/menu/EssentialLink.vue';
 
 const router = useRouter()
+const paymentStore = usePaymentStore();
 const auth = useAuthStore()
 
 const rightDrawerOpen = ref(false)
@@ -105,16 +107,16 @@ function toggleRightDrawer() {
 
 const menu = [
   {
-    title: 'Dashboard',
+    title: 'Inicio',
     caption: 'Vista general',
-    route: 'Dashboard',
+    route: 'Inicio',
     icon: 'dashboard',
   },
   {
-    title: 'Registrar usuario',
-    caption: 'Registrar nuevo usuario',
-    route: 'Registrar',
-    icon: 'person_add',
+    title: 'Registrar metodo de pago',
+    caption: 'Registrar nuevo mdtodo de pago',
+    route: 'Formulario',
+    icon: 'payment',
   },
 ]
 
@@ -125,8 +127,30 @@ async function logout() {
 </script>
 
 <style scoped>
+.q-header-pad {
+  padding: 5px 0px;
+}
+
 .q-toolbar-title small {
   display: block;
+}
+
+.q-bg-texture {
+  --s: 53px;
+  /* control the size*/
+  --c1: #ffffff;
+  --c2: #fcfcfc;
+
+  --c: #0000 75%, var(--c1) 0;
+  --g1: conic-gradient(at calc(200%/3) 10%, var(--c));
+  --g2: conic-gradient(at 10% calc(200%/3), var(--c));
+  background:
+    var(--g1), var(--g2),
+    var(--g1) var(--s) var(--s),
+    var(--g2) var(--s) var(--s),
+    var(--g1) calc(2*var(--s)) calc(2*var(--s)),
+    var(--g2) calc(2*var(--s)) calc(2*var(--s)) var(--c2);
+  background-size: calc(3*var(--s)) calc(3*var(--s));
 }
 </style>
 

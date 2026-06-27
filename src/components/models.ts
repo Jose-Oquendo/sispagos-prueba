@@ -1,8 +1,31 @@
-export interface Todo {
+export interface User {
+  name: string;
+  role: string;
+}
+export interface PaymentMethod {
   id: number;
-  content: string;
+  alias: string;
+  creationDate: string;
+  paymentType: string;
+  cardNumber: string;
+  cardHolder: string;
+  cardExpiry: string;
+  cardCvv: string;
+  cardSubType: string;
+  paypalEmail: string;
+  bankName: string;
+  bankAccountType: string;
+  bankAccount: string;
+  cashProvider: string;
+  cashProviderCustom: string;
+  cashReference: string;
+  isActive: boolean;
 }
 
-export interface Meta {
-  totalCount: number;
+export interface filter {
+  id?: number;
+  name: string;
+  type: string;
+  state: 'Activo' | 'Inactivo';
+  dateCreation: string;
 }

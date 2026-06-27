@@ -46,7 +46,7 @@
 <script setup lang="ts">
 
 import { ref } from 'vue';
-import { useAuthStore } from 'src/stores/auth';
+import { useAuthStore } from 'src/stores/auth-store';
 import { useRouter } from 'vue-router';
 import { useQuasar } from 'quasar';
 
@@ -66,7 +66,7 @@ const sendlogin = async () => {
         timeout: 3000,
       });
 
-      await router.push({ name: 'Dashboard' });
+      await router.push({ name: 'Inicio' });
 
     } else {
       $q.notify({
