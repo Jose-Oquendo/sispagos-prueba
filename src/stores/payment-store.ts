@@ -1,50 +1,61 @@
 import { defineStore } from 'pinia';
-// import { type MetodoPago } from 'src/components/models';
 import { api } from 'src/boot/axios';
-
-interface MetodoPago {
-  id?: number;
-  name: string;
-  type: string;
-  state: 'Activo' | 'Inactivo';
-  dateCreation: string;
-}
+import type { MetodoPago, filter } from 'src/components/models';
 
 export const usePaymentStore = defineStore('payment', {
   state: () => ({
+    savingCreationData: [] as MetodoPago[],
     paymentList: [] as MetodoPago[],
+    filterData: {} as filter,
     formData: {} as MetodoPago,
-    tipoOptions: [
-      'Tarjeta de Crédito',
-      'Tarjeta de Débito',
-      'Transferencia Bancaria',
-      'Efectivo',
-      'Billetera Digital',
+    paymentTypes: [
+      { label: 'Tarjeta', search: 'Tarjeta', value: 'card', icon: 'credit_card' },
+      { label: 'PayPal', search: 'Billetera Digital', value: 'paypal', icon: 'payment' },
+      { label: 'Banco', search: 'Transferencia Bancaria', value: 'bank', icon: 'account_balance' },
+      { label: 'Efectivo', search: 'Efectivo', value: 'cash', icon: 'local_atm' },
     ],
     estadoOptions: [
       { label: 'Activo', value: 'Activo' },
       { label: 'Inactivo', value: 'Inactivo' },
     ],
+    cashProviders: [
+      { label: 'Efecty', value: 'Efecty' },
+      { label: 'Via Baloto', value: 'Baloto' },
+      { label: 'Tiendas OXXO', value: 'OXXO' },
+      { label: 'SuperGiros', value: 'SuperGiros' },
+      { label: 'SuRed (Gane / Paga Todo)', value: 'SuRed' },
+      { label: 'Corresponsal Bancolombia', value: 'CorresponsalBancolombia' },
+      { label: 'Corresponsal Davivienda / Conred', value: 'CorresponsalDavivienda' },
+      { label: 'Western Union', value: 'WesternUnion' },
+      { label: 'Otro punto de recaudo', value: 'Otro' },
+    ],
+    bankAccountTypes: [
+      { label: 'Cuenta Corriente', value: 'checking' },
+      { label: 'Cuenta de Ahorros', value: 'savings' },
+      { label: 'Clave Interbancaria (CCI)', value: 'clabe' },
+    ],
   }),
   getters: {
+    tipoOptions(state): string[] {
+      return state.paymentTypes.map((item) => item.search);
+    },
     filteredPaymentList(state): MetodoPago[] {
+      state.paymentList = [...state.paymentList, ...state.savingCreationData];
       return state.paymentList.filter((item) => {
-        // Filtro por Nombre (ignora mayúsculas/minúsculas y busca coincidencias parciales)
         const matchesName =
-          !state.formData.name ||
-          item.name.toLowerCase().includes(state.formData.name.toLowerCase());
+          !state.filterData.name ||
+          item.alias.toLowerCase().includes(state.filterData.name.toLowerCase());
 
-        // Filtro por Tipo de Pago (coincidencia exacta)
-        const matchesType = !state.formData.type || item.type === state.formData.type;
+        const actualType = state.paymentTypes.find((t) => t.value === item.paymentType)?.search;
+        const matchesType = !state.filterData.type || actualType === state.filterData.type;
 
-        // Filtro por Estado (coincidencia exacta)
-        const matchesState = !state.formData.state || item.state === state.formData.state;
+        const actualState = item.isActive == true ? 'Activo' : 'Inactivo';
+        const matchesState = !state.filterData.state || actualState === state.filterData.state;
 
-        // Filtro por Fecha de Creación (coincidencia parcial o exacta según uses q-input)
         const matchesDate =
-          !state.formData.dateCreation || item.dateCreation.includes(state.formData.dateCreation);
+          !state.filterData.dateCreation ||
+          item.creationDate.includes(state.filterData.dateCreation);
 
-        // Solo se muestra el registro si cumple TODOS los filtros activos
         return matchesName && matchesType && matchesState && matchesDate;
       });
     },
@@ -59,9 +70,27 @@ export const usePaymentStore = defineStore('payment', {
         throw error;
       }
     },
-    async resetFormData() {
-      this.formData = {} as MetodoPago;
+    async resetFilterData() {
+      this.filterData = {} as filter;
       await this.fetchPaymentList(); // Refresh
+    },
+    saveNewMethod() {
+      this.savingCreationData.push(this.formData);
+      this.formData = {} as MetodoPago;
+    },
+    cleanTypeData() {
+      this.formData.cardNumber = '';
+      this.formData.cardHolder = '';
+      this.formData.cardExpiry = '';
+      this.formData.cardCvv = '';
+      this.formData.cardSubType = '';
+      this.formData.paypalEmail = '';
+      this.formData.bankName = '';
+      this.formData.bankAccountType = '';
+      this.formData.bankAccount = '';
+      this.formData.cashProvider = '';
+      this.formData.cashProviderCustom = '';
+      this.formData.cashReference = '';
     },
   },
 });

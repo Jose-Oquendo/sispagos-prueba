@@ -13,7 +13,11 @@ const routes: RouteRecordRaw[] = [
     meta: { requiresAuth: true },
     children: [
       { path: '', name: 'Dashboard', component: () => import('pages/IndexPage.vue') },
-      { path: '/registrar', name: 'Registrar', component: () => import('pages/IndexPage.vue') },
+      {
+        path: '/registrar',
+        name: 'Registrar',
+        component: () => import('pages/RegisterMethod.vue'),
+      },
     ],
   },
   // Always leave this as last one,

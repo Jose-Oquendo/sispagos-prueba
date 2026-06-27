@@ -1,34 +1,36 @@
 <template>
   <GenericForm @submit="onSave" @cancel="onResetForm" :loading="isSaving" :cancelLabel="'Limpiar'"
     :submitLabel="'Buscar'">
-    <div>
-      <GenericInput v-model="paymentStore.formData.name" label="Nombre del Método" />
-    </div>
+    <div class="row q-col-gutter-md full-width">
+      <div class="col-xs-12 col-sm-6 col-md-4">
+        <GenericInput v-model="paymentStore.filterData.name" label="Nombre del Método" />
+      </div>
 
-    <div>
-      <q-select v-model="paymentStore.formData.type" :options="paymentStore.tipoOptions" label="Tipo de Pago" outlined
-        dense emit-value map-options />
-    </div>
+      <div class="col-xs-12 col-sm-6 col-md-4">
+        <q-select v-model="paymentStore.filterData.type" :options="paymentStore.tipoOptions" label="Tipo de Pago"
+          outlined dense emit-value map-options />
+      </div>
 
-    <div>
-      <q-select v-model="paymentStore.formData.state" :options="paymentStore.estadoOptions" label="Estado" outlined
-        dense emit-value map-options />
-    </div>
+      <div class="col-xs-12 col-sm-6 col-md-4">
+        <q-select v-model="paymentStore.filterData.state" :options="paymentStore.estadoOptions" label="Estado" outlined
+          dense emit-value map-options />
+      </div>
 
-    <div>
-      <GenericInput v-model="paymentStore.formData.dateCreation" label="Fecha de Creación" mask="date">
-        <template #append>
-          <q-icon name="event" class="cursor-pointer">
-            <q-popup-proxy cover transition-show="scale" transition-hide="scale">
-              <q-date v-model="paymentStore.formData.dateCreation">
-                <div class="row items-center justify-end">
-                  <q-btn v-close-popup label="Cerrar" color="primary" flat />
-                </div>
-              </q-date>
-            </q-popup-proxy>
-          </q-icon>
-        </template>
-      </GenericInput>
+      <div class="col-xs-12 col-sm-6 col-md-4">
+        <GenericInput v-model="paymentStore.filterData.dateCreation" label="Fecha de Creación" mask="date">
+          <template #append>
+            <q-icon name="event" class="cursor-pointer">
+              <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+                <q-date v-model="paymentStore.filterData.dateCreation">
+                  <div class="row items-center justify-end">
+                    <q-btn v-close-popup label="Cerrar" color="primary" flat />
+                  </div>
+                </q-date>
+              </q-popup-proxy>
+            </q-icon>
+          </template>
+        </GenericInput>
+      </div>
     </div>
   </GenericForm>
 </template>
@@ -55,7 +57,7 @@ const onSave = async () => {
 };
 
 const onResetForm = async () => {
-  await paymentStore.resetFormData();
+  await paymentStore.resetFilterData();
 };
 
 </script>

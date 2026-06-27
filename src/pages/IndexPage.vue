@@ -10,14 +10,14 @@
       <GenericTable :rows="paymentStore.filteredPaymentList" :columns="columns" row-key="id"
         @row-press="onMethodSelect">
         <template #body-cells="{ row }">
-          <q-td key="nombre">{{ row.name }}</q-td>
-          <q-td key="tipo">{{ row.type }}</q-td>
+          <q-td key="nombre">{{ row.alias }}</q-td>
+          <q-td key="tipo">{{paymentStore.paymentTypes.find(t => t.value === row.paymentType)?.search}}</q-td>
           <q-td key="estado">
-            <q-chip :color="row.state === 'Activo' ? 'positive' : 'negative'" text-color="white" dense>
-              {{ row.state }}
+            <q-chip :color="row.isActive ? 'positive' : 'negative'" text-color="white" dense>
+              {{ row.isActive ? 'Activo' : 'Inactivo' }}
             </q-chip>
           </q-td>
-          <q-td key="fechaCreacion">{{ row.dateCreation }}</q-td>
+          <q-td key="fechaCreacion">{{ row.creationDate }}</q-td>
         </template>
       </GenericTable>
     </div>
@@ -48,7 +48,7 @@ const columns: QTableProps['columns'] = [
 const onMethodSelect = (item: MetodoPago) => {
   console.log('Método de pago seleccionado:', item);
   // Aquí podrías cargar el item en el formulario para editarlo o abrir un detalle
-  alert("selecciono " + item.name)
+  alert("selecciono " + item.alias)
 };
 
 </script>
