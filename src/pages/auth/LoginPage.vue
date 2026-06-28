@@ -78,6 +78,12 @@ const sendlogin = async () => {
     }
   } catch (error) {
     console.error('Error al iniciar sesión:', error);
+    $q.notify({
+      type: 'negative',
+      message: 'Error al iniciar sesión. Verifica tus credenciales.',
+      position: 'top-right',
+      timeout: 3000,
+    });
   }
 };
 
